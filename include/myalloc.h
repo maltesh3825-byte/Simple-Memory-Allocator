@@ -52,6 +52,9 @@ struct Block {
     struct Block *prev;  /**< Pointer to the physically previous block in memory */
 };
 
+_Static_assert(sizeof(struct Block) % ALIGNMENT == 0,
+               "Block header must preserve payload alignment");
+
 /* --- Core Allocator API --- */
 
 /**
