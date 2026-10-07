@@ -24,7 +24,7 @@ BENCH_SRCS = bench/bench.c
 SWEEP_SRCS = bench/seed_sweep.c
 HEADERS = include/myalloc.h
 
-.PHONY: all test bench sweep report valgrind clean
+.PHONY: all test bench sweep report valgrind sanitize clean
 
 all: $(TEST_BIN) $(BENCH_BIN) $(SWEEP_BIN)
 
@@ -53,6 +53,10 @@ report:
 
 valgrind: $(TEST_BIN)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TEST_BIN)
+
+sanitize: $(SRCS) $(TEST_SRCS) $(HEADERS)
+	$(CC) $(CFLAGS) -fsanitize=address,undefined -fno-omit-frame-pointer $(SRCS) $(TEST_SRCS) -o $(TEST_BIN)
+	./$(TEST_BIN)
 
 clean:
 	$(RM) $(TEST_BIN) $(BENCH_BIN) $(SWEEP_BIN) test_alloc test_alloc.exe bench_runner bench_runner.exe seed_sweep seed_sweep.exe *.o src/*.o tests/*.o bench/*.o
