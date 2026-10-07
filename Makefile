@@ -2,8 +2,8 @@
 # Target: Linux/WSL, gcc, -std=c11
 
 CC ?= gcc
-CFLAGS ?= -std=c11 -Wall -Wextra -g -Iinclude
-BENCH_CFLAGS ?= -std=c11 -Wall -Wextra -O2 -Iinclude
+CFLAGS ?= -std=c11 -Wall -Wextra -Wpedantic -g -Iinclude
+BENCH_CFLAGS ?= -std=c11 -Wall -Wextra -Wpedantic -O2 -Iinclude
 
 # Handle executable extension across POSIX and Windows/MinGW environments
 ifeq ($(OS),Windows_NT)
