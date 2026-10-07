@@ -113,7 +113,7 @@ pb-hackathon/
 ├── src/
 │   └── myalloc.c                 # Core allocator logic (malloc, free, split, coalesce)
 ├── tests/
-│   └── test_alloc.c              # 8 unit tests (deterministic PRNG, 1,672,746 assertions)
+│   └── test_alloc.c              # 9 unit tests (deterministic PRNG and alignment checks)
 ├── bench/
 │   ├── bench.c                   # 5-run median benchmark with warm-up & saturation test
 │   ├── seed_sweep.c              # 300-seed validation tool for saturation workload
@@ -146,7 +146,7 @@ pb-hackathon/
    ```bash
    make test
    ```
-   Runs 8 unit test cases against both `FIRST_FIT` and `BEST_FIT` (16 total runs) with **exactly 1,672,746 assertions checked** using a portable 32-bit PRNG.
+   Runs 9 unit test cases against both `FIRST_FIT` and `BEST_FIT` (18 total runs) using a portable 32-bit PRNG.
 
 3. **Run Performance Benchmarks**
    ```bash
