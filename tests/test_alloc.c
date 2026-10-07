@@ -224,6 +224,10 @@ static int test_size_zero_and_oversized(void) {
     void *p_huge = my_malloc(SIZE_MAX - 8);
     TEST_ASSERT(p_huge == NULL, "my_malloc with SIZE_MAX must return NULL");
 
+    /* Requests near SIZE_MAX must be rejected before alignment arithmetic wraps. */
+    void *p_max = my_malloc(SIZE_MAX);
+    TEST_ASSERT(p_max == NULL, "my_malloc(SIZE_MAX) must return NULL");
+
     /* Heap should still be in pristine state */
     TEST_ASSERT(is_heap_clean_single_block(), "Heap should remain clean after invalid requests");
     return 1;
