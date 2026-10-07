@@ -10,7 +10,8 @@
  *  5. Edge cases: size 0 returns NULL, requests > heap size return NULL.
  *  6. Double free detected without crashing; freeing NULL is safe.
  *  7. Block splitting: allocating small block leaves a free leftover block.
- *  8. Seeded stress test (5,000 random operations) with data integrity checks.
+ *  8. Seeded stress test (3,000 random operations) with data integrity checks.
+ *  9. Invalid strategy values leave the current strategy unchanged.
  *
  * Every test is executed for BOTH FIRST_FIT and BEST_FIT strategies.
  */
@@ -234,7 +235,23 @@ static int test_size_zero_and_oversized(void) {
 }
 
 /**
- * Test 6: Double free is detected without crashing; freeing NULL is safe.
+ * Test 6: Invalid strategy values do not change the active strategy.
+ */
+static int test_invalid_strategy_is_ignored(void) {
+    my_set_strategy(FIRST_FIT);
+    my_set_strategy((enum fit_strategy)99);
+    TEST_ASSERT(my_get_strategy() == FIRST_FIT,
+                "Invalid strategy must leave FIRST_FIT unchanged");
+
+    my_set_strategy(BEST_FIT);
+    my_set_strategy((enum fit_strategy)-1);
+    TEST_ASSERT(my_get_strategy() == BEST_FIT,
+                "Invalid strategy must leave BEST_FIT unchanged");
+    return 1;
+}
+
+/**
+ * Test 7: Double free is detected without crashing; freeing NULL is safe.
  */
 static int test_double_free_and_null_safe(void) {
     my_reset();
@@ -263,7 +280,7 @@ static int test_double_free_and_null_safe(void) {
 }
 
 /**
- * Test 7: Splitting works: after allocating a small block from a fresh heap, a free block remains.
+ * Test 8: Splitting works: after allocating a small block from a fresh heap, a free block remains.
  */
 static int test_splitting(void) {
     my_reset();
@@ -310,7 +327,7 @@ static inline uint32_t test_prng_next(void) {
 }
 
 /**
- * Test 8: Seeded random alloc/free stress test (a few thousand operations) with data-integrity checks.
+ * Test 9: Seeded random alloc/free stress test (a few thousand operations) with data-integrity checks.
  */
 static int test_stress_random_alloc_free(void) {
     my_reset();
@@ -389,9 +406,10 @@ static struct TestCase test_cases[] = {
     { "Test 3: Unique byte patterns and overlap detection", test_data_integrity_no_overlap },
     { "Test 4: 16-byte alignment on all returned pointers", test_16_byte_alignment },
     { "Test 5: Edge cases (size 0 and oversized requests return NULL)", test_size_zero_and_oversized },
-    { "Test 6: Double free safe detection & NULL free safety", test_double_free_and_null_safe },
-    { "Test 7: Splitting behavior leaves valid free leftover block", test_splitting },
-    { "Test 8: Seeded random stress test (3,000 ops) with integrity checks", test_stress_random_alloc_free }
+    { "Test 6: Invalid strategy values are ignored", test_invalid_strategy_is_ignored },
+    { "Test 7: Double free safe detection & NULL free safety", test_double_free_and_null_safe },
+    { "Test 8: Splitting behavior leaves valid free leftover block", test_splitting },
+    { "Test 9: Seeded random stress test (3,000 ops) with integrity checks", test_stress_random_alloc_free }
 };
 
 int main(void) {
