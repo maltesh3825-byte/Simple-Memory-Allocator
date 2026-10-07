@@ -1,0 +1,13 @@
+Workload,Allocator,Ops,Elapsed_ms,Throughput_ops_sec,Success_Allocs,Failed_Allocs,Fragmentation_Ratio,Largest_Free_Bytes
+"Many Small Allocs + Free All","First-Fit",5000,21.830,229043.7,2500,0,0.0000,1048560
+"Many Small Allocs + Free All","Best-Fit",5000,22.528,221944.1,2500,0,0.0000,1048560
+"Many Small Allocs + Free All","Windows CRT malloc (MinGW-w64/UCRT)",5000,0.558,8962179.6,2500,0,N/A,N/A
+"Random Dynamic Churn (16-4KB)","First-Fit",10000,1.004,9960159.4,5032,0,0.0624,854512
+"Random Dynamic Churn (16-4KB)","Best-Fit",10000,2.420,4132231.4,5032,0,0.0532,863040
+"Random Dynamic Churn (16-4KB)","Windows CRT malloc (MinGW-w64/UCRT)",10000,3.372,2965423.2,5032,0,N/A,N/A
+"Adversarial Checkerboard Frag","First-Fit",600,0.184,3253796.1,450,0,0.0203,926160
+"Adversarial Checkerboard Frag","Best-Fit",600,0.343,1750802.5,450,0,0.0203,926160
+"Adversarial Checkerboard Frag","Windows CRT malloc (MinGW-w64/UCRT)",600,0.151,3965631.2,450,0,N/A,N/A
+"Fill-until-Failure (Saturation)","First-Fit",3236,65.254,49590.6,742,5,0.9956,416
+"Fill-until-Failure (Saturation)","Best-Fit",3241,70.713,45832.8,747,5,0.9958,384
+"Fill-until-Failure (Saturation)","Windows CRT malloc (MinGW-w64/UCRT)",5489,1.797,3054875.3,3000,0,N/A,N/A

@@ -1,0 +1,23 @@
+# Build outputs and object files
+*.o
+*.obj
+*.so
+*.a
+
+# Test and benchmark binaries
+test_alloc
+test_alloc.exe
+bench_runner
+bench_runner.exe
+bench/bench_runner
+bench/bench_runner.exe
+seed_sweep
+seed_sweep.exe
+bench/seed_sweep
+bench/seed_sweep.exe
+
+# Debug symbols and IDE files
+*.dSYM/
+.vscode/
+.idea/
+compile_flags.txt
