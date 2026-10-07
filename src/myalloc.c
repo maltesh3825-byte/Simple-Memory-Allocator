@@ -252,7 +252,12 @@ void *my_malloc(size_t size) {
         my_init();
     }
 
-    /* 3. Round requested size up to the nearest multiple of 16 */
+    /* 3. Reject requests that would overflow during alignment rounding. */
+    if (size > SIZE_MAX - (ALIGNMENT - 1)) {
+        return NULL;
+    }
+
+    /* Round requested size up to the nearest multiple of 16. */
     size_t req_size = ALIGN_SIZE(size);
 
     /* Guard against integer overflow or requests exceeding entire heap capacity */
