@@ -166,10 +166,14 @@ pb-hackathon/
    ```
    Runs test suite under Valgrind. *(See Valgrind Caveat below).*
 
-5. **Clean Build Outputs**
+6. **Clean Build Outputs**
    ```bash
    make clean
    ```
+
+On Windows with MinGW, run these commands from a MinGW-enabled shell. The
+Makefile automatically adds `.exe` to generated binaries and uses PowerShell
+for cleanup.
 
 ---
 
