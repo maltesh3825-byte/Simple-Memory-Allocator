@@ -16,6 +16,15 @@ def generate_markdown_table(csv_path):
 
     with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
+        required_columns = {
+            "Workload", "Allocator", "Ops", "Elapsed_ms",
+            "Throughput_ops_sec", "Success_Allocs", "Failed_Allocs",
+            "Fragmentation_Ratio", "Largest_Free_Bytes",
+        }
+        missing_columns = required_columns - set(reader.fieldnames or [])
+        if missing_columns:
+            missing = ", ".join(sorted(missing_columns))
+            raise ValueError(f"CSV is missing required columns: {missing}")
         rows = list(reader)
 
     header = "| Workload | Allocator | Total Ops | Time (ms) | Throughput (ops/sec) | Success Allocs | Failed Allocs | Frag Ratio | Largest Free Block |\n"
