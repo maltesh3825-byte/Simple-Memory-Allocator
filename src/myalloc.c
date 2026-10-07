@@ -234,6 +234,10 @@ static struct Block *coalesce_block(struct Block *block) {
 /* ========================================================================= */
 
 void my_set_strategy(enum fit_strategy strategy) {
+    if (strategy != FIRST_FIT && strategy != BEST_FIT) {
+        fprintf(stderr, "my_set_strategy: invalid strategy %d\n", strategy);
+        return;
+    }
     current_strategy = strategy;
 }
 

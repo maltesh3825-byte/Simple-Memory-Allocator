@@ -80,7 +80,8 @@ void my_free(void *ptr);
 /**
  * @brief Changes the allocation search strategy (FIRST_FIT or BEST_FIT).
  *
- * @param strategy The strategy to use for subsequent allocations.
+ * @param strategy The strategy to use for subsequent allocations. Invalid
+ * values are rejected and leave the current strategy unchanged.
  */
 void my_set_strategy(enum fit_strategy strategy);
 
