@@ -166,7 +166,14 @@ pb-hackathon/
    ```
    Runs test suite under Valgrind. *(See Valgrind Caveat below).*
 
-6. **Clean Build Outputs**
+6. **Run Address and Undefined Behavior Sanitizers**
+   ```bash
+   make sanitize
+   ```
+   Builds the test suite with AddressSanitizer and UndefinedBehaviorSanitizer
+   enabled, then runs all allocator tests.
+
+7. **Clean Build Outputs**
    ```bash
    make clean
    ```
